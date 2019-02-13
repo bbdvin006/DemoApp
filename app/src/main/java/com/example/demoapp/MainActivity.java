@@ -39,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, LoginActivity.class));
                 return true;
 
+            case R.id.culpDetail:
+                startActivity(new Intent(this, CulpritDetails.class));
+                return true;
+
         }
         return false;
         //return super.onOptionsItemSelected(item);

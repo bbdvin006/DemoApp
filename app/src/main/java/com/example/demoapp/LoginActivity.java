@@ -57,11 +57,11 @@ public class LoginActivity extends AppCompatActivity {
         updateUI(currentUser);
     }
 
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
-        this.finish();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        startActivity(new Intent(this, MainActivity.class));
+//        this.finish();
+//    }
 
 
 

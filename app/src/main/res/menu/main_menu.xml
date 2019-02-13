@@ -4,4 +4,8 @@
     <item
         android:id="@+id/login_page"
         android:title="Login Here" />
+
+    <item
+        android:id="@+id/culpDetail"
+        android:title="CulpPage" />
 </menu>
