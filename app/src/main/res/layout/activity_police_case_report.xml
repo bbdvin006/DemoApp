@@ -4,17 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PoliceCaseReport">
+    android:fillViewport="true"
+    android:scrollbarStyle="outsideOverlay"
+    tools:context=".CaseReportActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="12dp"
         android:orientation="vertical">
 
 
         <TextView
             android:id="@+id/policeReport"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Police Report"
@@ -22,6 +25,13 @@
             android:textStyle="bold"
             tools:layout_editor_absoluteX="131dp"
             tools:layout_editor_absoluteY="5dp" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/reportOfficerNameText"
@@ -35,9 +45,9 @@
 
         <EditText
             android:id="@+id/reportOfficerName"
-            android:layout_width="395dp"
+            style="@style/editStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:hint="officer name"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="8dp"
@@ -45,14 +55,16 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/policeStation"
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Police Station"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -61,11 +73,41 @@
 
             <Spinner
                 android:id="@+id/policeStationList"
-                android:layout_width="282dp"
-                android:layout_height="25dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:spinnerMode="dialog"
                 tools:layout_editor_absoluteX="122dp"
                 tools:layout_editor_absoluteY="126dp" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnDate"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_date_range"
+                android:editable="true"
+                android:inputType="date"
+                android:text="Date Here" />
+
+            <Button
+                android:id="@+id/btnTime"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_access_time"
+                android:editable="true"
+                android:inputType="time"
+                android:text="Time Here" />
         </LinearLayout>
 
         <TextView
@@ -77,6 +119,13 @@
             android:textStyle="bold"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="160dp" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/addressOfCrimeText"
@@ -90,6 +139,7 @@
 
         <EditText
             android:id="@+id/addressOfCrime"
+            style="@style/editStyle"
             android:layout_width="395dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -102,7 +152,7 @@
             android:id="@+id/crimeCommittedtext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2. Crime Committed"
+            android:text="2. Case Details"
             android:textSize="16sp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="8dp"
@@ -110,6 +160,7 @@
 
         <EditText
             android:id="@+id/crimeCommitted"
+            style="@style/editStyle"
             android:layout_width="395dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -119,42 +170,10 @@
             tools:layout_editor_absoluteY="293dp" />
 
         <TextView
-            android:id="@+id/dateText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="3. Date Of Crime"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="01/01/2019"
-            android:inputType="date" />
-
-        <TextView
-            android:id="@+id/timeText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="4. Time"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="12:00 PM"
-            android:inputType="time" />
-
-        <TextView
             android:id="@+id/evidenceText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5. Evidence Of Crime"
+            android:text="3. Evidences Collected"
             android:textSize="16sp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="8dp"
@@ -162,11 +181,11 @@
 
         <EditText
             android:id="@+id/evidenceOfCrime"
+            style="@style/editStyle"
             android:layout_width="395dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Evidence Of Crime"
-            android:inputType="textMultiLine"
+            android:hint="fill the details for the evidence collection"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="368dp" />
 
@@ -180,6 +199,13 @@
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="413dp" />
 
+        <View
+            android:id="@+id/view"
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorPrimary" />
+
         <TextView
             android:id="@+id/arrestMadeText"
             android:layout_width="wrap_content"
@@ -190,12 +216,14 @@
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="449dp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/arrestStatus"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="12dp">
 
-            <CheckBox
+            <RadioButton
                 android:id="@+id/yesArrested"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -204,7 +232,7 @@
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="480dp" />
 
-            <CheckBox
+            <RadioButton
                 android:id="@+id/notArrested"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -213,36 +241,43 @@
                 tools:layout_editor_absoluteX="120dp"
                 tools:layout_editor_absoluteY="480dp" />
 
-            <CheckBox
+            <RadioButton
                 android:id="@+id/notConfirmed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Not Confirmed"
+                android:checked="true"
                 android:textSize="16sp"
                 tools:layout_editor_absoluteX="240dp"
                 tools:layout_editor_absoluteY="480dp" />
 
-        </LinearLayout>
+        </RadioGroup>
 
-
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="191dp"
-            android:layout_height="wrap_content"
-            android:text="2. No Of Convicts"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="520dp" />
-
-
-        <EditText
-            android:id="@+id/noOfVictims"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="ex : 5"
-            android:inputType="numberDecimal" />
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="2. No Of Crime"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="520dp" />
+
+            <Spinner
+                android:id="@+id/victimList"
+                android:layout_width="74dp"
+                android:layout_height="28dp"
+                android:spinnerMode="dialog"
+                tools:layout_editor_absoluteX="285dp"
+                tools:layout_editor_absoluteY="520dp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/otherInformationtext"
@@ -256,6 +291,7 @@
 
         <EditText
             android:id="@+id/otherInformation"
+            style="@style/editStyle"
             android:layout_width="395dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -263,6 +299,13 @@
             android:inputType="textMultiLine"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="575dp" />
+
+        <ProgressBar
+            android:id="@+id/uploadBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/submitReport"

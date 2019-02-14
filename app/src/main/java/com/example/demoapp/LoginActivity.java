@@ -1,7 +1,6 @@
 package com.example.demoapp;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -57,11 +56,11 @@ public class LoginActivity extends AppCompatActivity {
         updateUI(currentUser);
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        startActivity(new Intent(this, MainActivity.class));
-//        this.finish();
-//    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        this.finish();
+    }
 
 
 
@@ -108,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
         if (user != null){
 
-            startActivity(new Intent(this, PoliceCaseReport.class));
+            startActivity(new Intent(this, CaseReportActivity.class));
 
         }
     }
