@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(26.8467, 80.9462), 16));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(26.913855, 80.937592), 11));
         loadStationData();
 
         btnShow.setOnClickListener(new View.OnClickListener() {
@@ -67,10 +67,9 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             MarkerOptions markerOptions = new MarkerOptions()
                     .title(policeStation.name)
                     .position(new LatLng(policeStation.lat, policeStation.lng))
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_local_convenience_store_black_24dp));
+                    ;
 
             Marker marker = mMap.addMarker(markerOptions);
-
             marker.setTag(policeStation);
         }
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
