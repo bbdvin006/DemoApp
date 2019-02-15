@@ -38,6 +38,7 @@ public class ConvictDetailActivity extends AppCompatActivity {
     private String caseid;
     private ProgressBar uploadBar;
     private FirebaseFirestore db;
+    private int convictsSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +50,8 @@ public class ConvictDetailActivity extends AppCompatActivity {
             Toast.makeText(this, "error counting convicts", Toast.LENGTH_SHORT).show();
         }
         assert intent != null;
-        final int convictsSize = intent.getIntExtra("convicts", 0);
-        caseid = intent.getStringExtra("caseid" );
+        convictsSize = intent.getIntExtra("convicts", 0);
+        caseid = intent.getStringExtra("caseid");
 
         Button btnSave = findViewById(R.id.btnSave);
         recyclerView = findViewById(R.id.formRecycler);
@@ -85,8 +86,8 @@ public class ConvictDetailActivity extends AppCompatActivity {
                 uploadBar.setVisibility(View.VISIBLE);
                 if (mFormBuilder.isValidForm()) {
                     Toast.makeText(ConvictDetailActivity.this, "validated", Toast.LENGTH_SHORT).show();
-                }else{
-                    updateUI(false);
+                } else {
+                    updateUI(false, 0);
                 }
                 List<Convict> convictList = new ArrayList<>();
                 for (int i = 1; i <= convictsSize; i++) {
@@ -96,43 +97,51 @@ public class ConvictDetailActivity extends AppCompatActivity {
                     String details = mFormBuilder.getFormElement(i * 10 + 3).getValue();
                     String gender = mFormBuilder.getFormElement(i * 10 + 4).getValue();
                     String state = mFormBuilder.getFormElement(i * 10 + 5).getValue();
-                    convictList.add(new Convict(caseid,name,address,details,gender,state));
+                    convictList.add(new Convict(caseid, name, address, details, gender, state));
 
                 }
 
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     // Add a new document with a generated ID
-                    db.collection("convicts")
-                            .add(convictList)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    caseid = documentReference.getId();
-                                    Log.d(TAG, "DocumentSnapshot added with ID: " + caseid);
-                                    updateUI(true);
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Error adding document", e);
-                                    Toast.makeText(ConvictDetailActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    updateUI(false);
-                                }
-                            });
+                    for (int i = 0; i < convictList.size(); i++) {
+                        final int finalI = i;
+                        db.collection("convicts")
+                                .add(convictList.get(i))
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        caseid = documentReference.getId();
+                                        Log.d(TAG, "DocumentSnapshot added with ID: " + caseid);
+                                        updateUI(true, finalI);
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error adding document", e);
+                                        Toast.makeText(ConvictDetailActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        updateUI(false, 0);
+                                    }
+                                });
+
+                    }
                 }
             }
 
         });
     }
-    private void updateUI(boolean state) {
+
+    private void updateUI(boolean state, int pos) {
         uploadBar.setVisibility(View.GONE);
-        if (state) {
+
+        if (state && pos == convictsSize - 1) {
             Toast.makeText(this, "data saved on server", Toast.LENGTH_SHORT).show();
-            Intent intent=new Intent(this,HomeActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
-        }else{
+
+        } else {
             Toast.makeText(this, "some error", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

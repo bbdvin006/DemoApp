@@ -83,7 +83,8 @@ public class CaseReportActivity extends AppCompatActivity {
         ArrayAdapter<Integer> victimAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new Integer[]{1, 2, 3, 4, 5, 6, 7, 7, 8, 9, 10});
         victimAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         noOfVictims.setAdapter(victimAdapter);
-        noOfVictims.setSelection(0);
+        noOfVictims.setSelection(2);
+
         uploadBar = findViewById(R.id.uploadBar);
         mAuth = FirebaseAuth.getInstance();
         submitReport.setOnClickListener(new View.OnClickListener() {
