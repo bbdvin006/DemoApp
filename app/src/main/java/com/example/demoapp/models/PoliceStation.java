@@ -20,6 +20,6 @@ public class PoliceStation {
 
     @Override
     public String toString() {
-        return  "Station : "+name+"\n"+address;
+        return  name;
     }
 }

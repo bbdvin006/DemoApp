@@ -1,19 +1,28 @@
 package com.example.demoapp;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.demoapp.data.StationDummyData;
@@ -25,6 +34,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class CaseReportActivity extends AppCompatActivity {
 
@@ -88,6 +101,29 @@ public class CaseReportActivity extends AppCompatActivity {
         FirebaseFirestoreSettings firestoreSettings = new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true).setTimestampsInSnapshotsEnabled(true).build();
         db = FirebaseFirestore.getInstance();
         db.setFirestoreSettings(firestoreSettings);
+
+
+        // DatePicker
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DialogFragment dtFragment = new DatePickerFragment();
+                dtFragment.show(getSupportFragmentManager(), "datePicker");
+
+            }
+        });
+
+        //timePicker
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DialogFragment tmFragment = new TimePickerFragment();
+                tmFragment.show(getSupportFragmentManager(), "timePicker");
+
+            }
+        });
 
     }
 
@@ -169,8 +205,7 @@ public class CaseReportActivity extends AppCompatActivity {
                 information,
                 cDate,
                 ctime,
-                numVictims,
-                station
+                numVictims
         );
 
 
@@ -211,4 +246,59 @@ public class CaseReportActivity extends AppCompatActivity {
     }
 
 
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+        private Calendar cal;
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+
+
+            cal = Calendar.getInstance();
+
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+
+
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        @Override
+        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+            Button btnDate = (Button) getActivity().findViewById(R.id.btnDate);
+            cal.set(year, month, day);
+            Date cDate = cal.getTime();
+
+            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
+            String sdate = dateFormat.format(cDate);
+            btnDate.setText(sdate);
+
+        }
+    }
+
+    public static class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+
+            Calendar cal = Calendar.getInstance();
+
+            int hour = cal.get(Calendar.HOUR_OF_DAY);
+            int minute = cal.get(Calendar.MINUTE);
+
+            return new TimePickerDialog(getActivity(), this, hour, minute, false);
+        }
+
+        @Override
+        public void onTimeSet(TimePicker timePicker, int hr, int min) {
+
+            Button btnTime = (Button) getActivity().findViewById(R.id.btnTime);
+            btnTime.setText(hr+":"+min);
+
+        }
+    }
 }
