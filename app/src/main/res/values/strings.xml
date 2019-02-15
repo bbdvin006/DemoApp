@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">DemoApp</string>
+    <string name="app_name">Demo App</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_station_detail">StationDetailActivity</string>
+    <string name="title_activity_station_detail">Station Details</string>
+    <string name="title_activity_case_detail">Case Details</string>
 </resources>

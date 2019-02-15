@@ -14,7 +14,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -56,7 +55,12 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 PoliceStation station = (PoliceStation) v.getTag();
-                startActivity(new Intent(HomeActivity.this,StationDetailActivity.class));
+
+                Intent intent = new Intent(HomeActivity.this, DetailStationActivity.class);
+                intent.putExtra("station_name", station.name);
+                intent.putExtra("station_address", station.address);
+                intent.putExtra("station_contact", station.mobile);
+                startActivity(intent);
             }
         });
     }
@@ -66,8 +70,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         for (PoliceStation policeStation : load) {
             MarkerOptions markerOptions = new MarkerOptions()
                     .title(policeStation.name)
-                    .position(new LatLng(policeStation.lat, policeStation.lng))
-                    ;
+                    .position(new LatLng(policeStation.lat, policeStation.lng));
 
             Marker marker = mMap.addMarker(markerOptions);
             marker.setTag(policeStation);
@@ -76,7 +79,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public boolean onMarkerClick(Marker marker) {
                 PoliceStation station = (PoliceStation) marker.getTag();
-                btnShow.setText(station.name+"\n"+station.address);
+                btnShow.setText(station.name + "\n" + station.address);
                 btnShow.setTag(station);
                 return true;
             }

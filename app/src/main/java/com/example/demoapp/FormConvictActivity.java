@@ -30,9 +30,9 @@ import me.riddhimanadib.formmaster.model.FormElementTextNumber;
 import me.riddhimanadib.formmaster.model.FormElementTextSingleLine;
 import me.riddhimanadib.formmaster.model.FormHeader;
 
-public class ConvictDetailActivity extends AppCompatActivity {
+public class FormConvictActivity extends AppCompatActivity {
 
-    private static final String TAG = ConvictDetailActivity.class.getName();
+    private static final String TAG = FormConvictActivity.class.getName();
     private RecyclerView recyclerView;
     private FormBuilder mFormBuilder;
     private String caseid;
@@ -85,7 +85,7 @@ public class ConvictDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 uploadBar.setVisibility(View.VISIBLE);
                 if (mFormBuilder.isValidForm()) {
-                    Toast.makeText(ConvictDetailActivity.this, "validated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FormConvictActivity.this, "validated", Toast.LENGTH_SHORT).show();
                 } else {
                     updateUI(false, 0);
                 }
@@ -105,25 +105,21 @@ public class ConvictDetailActivity extends AppCompatActivity {
                     // Add a new document with a generated ID
                     for (int i = 0; i < convictList.size(); i++) {
                         final int finalI = i;
-                        db.collection("convicts")
-                                .add(convictList.get(i))
-                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        caseid = documentReference.getId();
-                                        Log.d(TAG, "DocumentSnapshot added with ID: " + caseid);
-                                        updateUI(true, finalI);
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG, "Error adding document", e);
-                                        Toast.makeText(ConvictDetailActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        updateUI(false, 0);
-                                    }
-                                });
-
+                        db.collection("convicts").add(convictList.get(i)).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                caseid = documentReference.getId();
+                                Log.d(TAG, "DocumentSnapshot added with ID: " + caseid);
+                                updateUI(true, finalI);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error adding document", e);
+                                Toast.makeText(FormConvictActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                updateUI(false, 0);
+                            }
+                        });
                     }
                 }
             }

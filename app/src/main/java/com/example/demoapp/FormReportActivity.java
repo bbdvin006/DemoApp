@@ -3,16 +3,16 @@ package com.example.demoapp;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,7 +26,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.demoapp.data.StationDummyData;
-import com.example.demoapp.models.CaseReportInformation;
+import com.example.demoapp.models.CaseReport;
 import com.example.demoapp.models.PoliceStation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,9 +39,9 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class CaseReportActivity extends AppCompatActivity {
+public class FormReportActivity extends AppCompatActivity {
 
-    public static final String TAG = CaseReportActivity.class.getName();
+    public static final String TAG = FormReportActivity.class.getName();
     private EditText reportOfficerName;
     private Spinner policeStationList;
     private EditText addressOfCrime;
@@ -196,7 +196,7 @@ public class CaseReportActivity extends AppCompatActivity {
         String cDate = date.getText().toString();
         String ctime = time.getText().toString();
         String hasArrestMade = arrestStatusValue.getText().toString();
-        CaseReportInformation report = new CaseReportInformation(
+        CaseReport report = new CaseReport(
                 officer,
                 station.name,
                 crimeAddress,
@@ -226,7 +226,7 @@ public class CaseReportActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Log.w(TAG, "Error adding document", e);
-                            Toast.makeText(CaseReportActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FormReportActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             updateUI(false);
                         }
                     });
@@ -237,11 +237,11 @@ public class CaseReportActivity extends AppCompatActivity {
         uploadBar.setVisibility(View.GONE);
         if (state) {
             Toast.makeText(this, "data saved on server", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, ConvictDetailActivity.class);
+            Intent intent = new Intent(this, FormConvictActivity.class);
             intent.putExtra("convicts", numVictims);
             intent.putExtra("caseid", caseid);
             startActivity(intent);
-        }else{
+        } else {
             Toast.makeText(this, "some error", Toast.LENGTH_SHORT).show();
         }
     }
@@ -298,8 +298,27 @@ public class CaseReportActivity extends AppCompatActivity {
         public void onTimeSet(TimePicker timePicker, int hr, int min) {
 
             Button btnTime = (Button) getActivity().findViewById(R.id.btnTime);
-            btnTime.setText(hr+":"+min);
+            btnTime.setText(hr + ":" + min);
 
         }
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.actionLogout:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

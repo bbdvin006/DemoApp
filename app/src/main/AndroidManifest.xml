@@ -4,6 +4,8 @@
     package="com.example.demoapp">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -16,8 +18,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <meta-data
+
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity
-            android:name=".StationDetailActivity"
+            android:name=".DetailCaseActivity"
+            android:label="@string/title_activity_case_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".DetailStationActivity"
             android:label="@string/title_activity_station_detail"
             android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -26,15 +39,17 @@
                 android:value="com.example.demoapp.HomeActivity" />
         </activity>
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+        <activity
+            android:name=".FormConvictActivity"
+            android:label="Covict Detail Form" />
 
-        <activity android:name=".ConvictDetailActivity" />
-        <activity android:name=".CaseReportActivity" />
+        <activity
+            android:name=".FormReportActivity"
+            android:label="Case report form" />
+
         <activity
             android:name=".HomeActivity"
-            android:label="Home"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,8 +57,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity" />
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="Officer Login" />
+
     </application>
 
 </manifest>
