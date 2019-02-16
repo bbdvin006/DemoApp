@@ -44,6 +44,7 @@ public class ConvictAdapter extends RecyclerView.Adapter<ConvictAdapter.ConvictH
         holder.convictDetails.setText(convict.details);
         holder.convictGender.setText(gender.toLowerCase().contains("male") ? gender : "female");
         holder.convictState.setText(state.toLowerCase().contains("dead") ? state : "alive");
+        holder.convictAge.setText(convict.age);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class ConvictAdapter extends RecyclerView.Adapter<ConvictAdapter.ConvictH
 
     public class ConvictHolder extends RecyclerView.ViewHolder {
 
-        TextView convictAddress, convictName, convictDetails, convictGender, convictState;
+        TextView convictAddress, convictName, convictDetails, convictGender, convictState,convictAge;
         CardView card;
 
         public ConvictHolder(@NonNull View v) {
@@ -63,6 +64,7 @@ public class ConvictAdapter extends RecyclerView.Adapter<ConvictAdapter.ConvictH
             convictName = v.findViewById(R.id.convictName);
             convictState = v.findViewById(R.id.convictstate);
             convictDetails = v.findViewById(R.id.convictDetails);
+            convictAge = v.findViewById(R.id.convictAge);
             card = v.findViewById(R.id.card);
         }
     }

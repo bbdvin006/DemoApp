@@ -24,17 +24,11 @@
         android:id="@+id/include"
         layout="@layout/content_home" />
 
-    <Button
-        android:id="@+id/btnShow"
+    <include
+        android:id="@+id/info_card"
+        layout="@layout/view_info_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff"
-        android:padding="12dp"
-        android:text="Click on Markers to view details"
-        android:textAlignment="textStart"
-        android:textAllCaps="false"
-        app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="bottom|center"
-        tools:text="Click on Markers to view detailsClick on Markers to view detailsClick on Markers to view detailsClick on Markers to view detailsClick on Markers to view detailsClick on Markers to view details" />
+        android:layout_gravity="bottom|start" />
 
 </android.support.design.widget.CoordinatorLayout>
