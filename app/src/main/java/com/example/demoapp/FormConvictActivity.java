@@ -95,9 +95,14 @@ public class FormConvictActivity extends AppCompatActivity {
                     String name = mFormBuilder.getFormElement(i * 10 + 1).getValue();
                     String address = mFormBuilder.getFormElement(i * 10 + 2).getValue();
                     String details = mFormBuilder.getFormElement(i * 10 + 3).getValue();
-                    String gender = mFormBuilder.getFormElement(i * 10 + 4).getValue();
-                    String state = mFormBuilder.getFormElement(i * 10 + 5).getValue();
-                    convictList.add(new Convict(caseid, name, address, details, gender, state));
+                    String age = mFormBuilder.getFormElement(i * 10 + 4).getValue();
+                    String gender = mFormBuilder.getFormElement(i * 10 + 5).getValue();
+                    String state = mFormBuilder.getFormElement(i * 10 + 6).getValue();
+                    if (state.contains("dead")) {
+                        convictList.add(new Convict(caseid, name, address, details, gender, age, "dead"));
+                    } else {
+                        convictList.add(new Convict(caseid, name, address, details, gender, age, "alive"));
+                    }
 
                 }
 
@@ -129,14 +134,11 @@ public class FormConvictActivity extends AppCompatActivity {
 
     private void updateUI(boolean state, int pos) {
         uploadBar.setVisibility(View.GONE);
-
         if (state && pos == convictsSize - 1) {
             Toast.makeText(this, "data saved on server", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
-
         } else {
-            Toast.makeText(this, "some error", Toast.LENGTH_SHORT).show();
         }
     }
 
