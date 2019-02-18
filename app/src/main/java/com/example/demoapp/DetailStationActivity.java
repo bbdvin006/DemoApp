@@ -53,10 +53,14 @@ public class DetailStationActivity extends AppCompatActivity {
         caseRecycler.setLayoutManager(new LinearLayoutManager(this));
         final List<CaseReport> cases = new ArrayList<>();
 
-        FirebaseFirestoreSettings firestoreSettings = new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true).build();
+        FirebaseFirestoreSettings firestoreSettings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true).build();
+
         db = FirebaseFirestore.getInstance();
         db.setFirestoreSettings(firestoreSettings);
-        db.collection("cases").whereEqualTo("station", stationName).addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+        db.collection("cases").whereEqualTo("station", stationName)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if (e == null) {

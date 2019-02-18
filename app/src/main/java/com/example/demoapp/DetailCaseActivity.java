@@ -105,7 +105,8 @@ public class DetailCaseActivity extends AppCompatActivity implements EasyPermiss
         });
 
 
-        db.collection("convicts").whereEqualTo("caseid", caseId).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("convicts").whereEqualTo("caseid", caseId)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if (e == null) {

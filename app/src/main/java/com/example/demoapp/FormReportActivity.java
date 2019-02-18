@@ -282,23 +282,38 @@ public class FormReportActivity extends AppCompatActivity {
 
     public static class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
+        private Calendar cal;
+
         @NonNull
         @Override
         public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-            Calendar cal = Calendar.getInstance();
-
+            cal = Calendar.getInstance();
             int hour = cal.get(Calendar.HOUR_OF_DAY);
             int minute = cal.get(Calendar.MINUTE);
-
-            return new TimePickerDialog(getActivity(), this, hour, minute, false);
+            
+            return new TimePickerDialog(getActivity(), this, hour, minute,false);
         }
 
         @Override
         public void onTimeSet(TimePicker timePicker, int hr, int min) {
+            String am_pm = " AM";
 
-            Button btnTime = (Button) getActivity().findViewById(R.id.btnTime);
-            btnTime.setText(hr + ":" + min);
+            if (hr >= 12) {
+                am_pm = " PM";
+                if (hr >=13 && hr < 24) {
+                    hr -= 12;
+                }
+                else {
+                    hr = 12;
+                }
+            } else if (hr == 0) {
+                hr = 12;
+            }
+
+            Button btnTime = (Button) getActivity()
+                    .findViewById(R.id.btnTime);
+            btnTime.setText(hr + ":" + min + am_pm);
 
         }
     }

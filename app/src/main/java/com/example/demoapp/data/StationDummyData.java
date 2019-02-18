@@ -4,7 +4,7 @@ import com.example.demoapp.models.PoliceStation;
 
 import java.util.ArrayList;
 
-public class    StationDummyData {
+public class StationDummyData {
 
 
     public static ArrayList<PoliceStation> load() {
